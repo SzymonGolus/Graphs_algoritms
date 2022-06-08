@@ -20,7 +20,7 @@ def insert(parent, child, depth=0):
         return child
     elif parent.id == child.id:
         return parent
-    elif parent.id < child.id:
+    elif child.id > parent.id:
         parent.right = insert(parent.right, child, parent.depth+1)
     else:
         parent.left = insert(parent.left, child, parent.depth+1)
@@ -49,6 +49,26 @@ def load_file(file_name):
             bst = insert(bst,node)
         return bst
 
+def max_depth(node):
+    if node is None:
+        return 0
+    else:
+        right_depth = max_depth(node.right) + 1
+        left_depth = max_depth(node.left) + 1
+        return max(right_depth, left_depth)
+
+def count(node):
+    if node is None:
+        return 0
+    else:
+        count_left = count(node.left)
+        count_right = count(node.right)
+        return count_left + count_right + 1
+
+
 file_name = 'worldcities.csv'
 bst = load_file(file_name)
-print(bst)
+
+print(max_depth(bst), max_depth(bst.left), max_depth(bst.right))
+
+print(count(bst), count(bst.left), count(bst.right))
