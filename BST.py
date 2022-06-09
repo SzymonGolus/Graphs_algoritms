@@ -23,6 +23,16 @@ def insert(parent, child, depth=0):
         parent.left = insert(parent.left, child, parent.depth+1)
     return parent
 
+def search_bst(parent, id):
+    if not parent:
+        return None
+    elif parent.id == id:
+        return parent
+    elif parent.id > id:
+        return search_bst(parent.left, id)
+    else:
+        return search_bst(parent.right, id)
+
 def build_bst(nodes_list, first_id, last_id, depth=0):
     if first_id > last_id:
         return None
@@ -107,3 +117,6 @@ bst = rebuilt_bst(bst)
 print(max_depth(bst), max_depth(bst.left), max_depth(bst.right))
 
 print(count(bst), count(bst.left), count(bst.right))
+
+c = search_bst(bst, "WROCLAW")
+print(c.id, c.population)
